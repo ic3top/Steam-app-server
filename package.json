@@ -1,0 +1,29 @@
+{
+  "name": "steam-api",
+  "version": "1.0.0",
+  "description": "Backend part for a gaming platform",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index",
+    "dev": "nodemon src/index"
+  },
+  "author": "Vova",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.2",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "eslint": "^7.30.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.23.4",
+    "nodemon": "^2.0.9"
+  }
+}
