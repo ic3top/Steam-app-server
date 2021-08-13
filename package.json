@@ -4,8 +4,8 @@
   "description": "Backend part for a gaming platform",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index",
-    "dev": "nodemon src/index"
+    "start": "node app/src/index",
+    "dev": "nodemon app/src/index"
   },
   "author": "Vova",
   "license": "ISC",
