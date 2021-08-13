@@ -49,4 +49,4 @@ const start = async (PORT) => {
   }
 };
 
-start(PORT);
+start(process.env.PORT || PORT);
