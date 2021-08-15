@@ -24,6 +24,9 @@ const Game = mongoose.model('Game', {
     type: Date,
     default: Date.now(),
   },
+
+  img: String,
+  alt: String,
 });
 
 module.exports = { Game };
