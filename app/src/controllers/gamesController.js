@@ -9,8 +9,8 @@ const {
   asyncWrapper,
 } = require('../utils/apiUtils');
 
-router.get('/', asyncWrapper(async (_, res) => {
-  const games = await getAllGames();
+router.get('/', asyncWrapper(async (req, res) => {
+  const games = await getAllGames(req.url);
 
   res.json({ games });
 }));
