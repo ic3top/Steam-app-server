@@ -1,3 +1,4 @@
+const url = require('url');
 const { User } = require('../models/userModel');
 const UNNECESSARY_FIELDS = {
   __v: false,
@@ -6,10 +7,20 @@ const UNNECESSARY_FIELDS = {
   games: false,
 };
 
-const getAllUsers = async () => {
+const getAllUsers = async (reqUrl) => {
+  const { search } = url.parse(reqUrl, true).query;
+
+  if (search) {
+    const users = await User.find({ userName: { $regex: search }}, UNNECESSARY_FIELDS)
+        .populate('friends', UNNECESSARY_FIELDS)
+        .populate('games', { __v: false });
+
+    return users;
+  }
+
   const users = await User.find({ 'userName': { $ne: 'admin' }}, UNNECESSARY_FIELDS)
       .populate('friends', UNNECESSARY_FIELDS)
-      .populate('games');
+      .populate('games', { __v: false });
   return users;
 };
 

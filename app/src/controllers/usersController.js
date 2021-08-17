@@ -1,3 +1,4 @@
+const url = require('url');
 const express = require('express');
 const router = express.Router();
 
@@ -7,8 +8,8 @@ const {
   asyncWrapper,
 } = require('../utils/apiUtils');
 
-router.get('/', asyncWrapper(async (_, res) => {
-  const users = await getAllUsers();
+router.get('/', asyncWrapper(async (req, res) => {
+  const users = await getAllUsers(req.url);
 
   res.json({ users });
 }));

@@ -66,7 +66,7 @@ const newGameValidator = async (req, _, next) => {
     rating: Joi.number()
         .min(0)
         .max(10),
-    image: Joi.string(),
+    img: Joi.string(),
     alt: Joi.string(),
   });
 
