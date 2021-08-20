@@ -31,6 +31,13 @@ const changeUserInfo = async ({ userId, email, age, userName }) => {
     throw new InvalidRequestError('No user was found');
   }
 
+  if (!age) {
+    await User.findOneAndUpdate(
+        { _id: userId },
+        { $unset: { age: 1 }},
+    );
+  }
+
   return updatedUser;
 };
 

@@ -11,14 +11,16 @@ const getAllUsers = async (reqUrl) => {
   const { search } = url.parse(reqUrl, true).query;
 
   if (search) {
-    const users = await User.find({ userName: { $regex: search }}, UNNECESSARY_FIELDS)
+    const users = await User.find({
+      userName: { $regex: new RegExp(search, 'i') },
+    }, UNNECESSARY_FIELDS)
         .populate('friends', UNNECESSARY_FIELDS)
         .populate('games', { __v: false });
 
     return users;
   }
 
-  const users = await User.find({ 'userName': { $ne: 'admin' }}, UNNECESSARY_FIELDS)
+  const users = await User.find({ userName: { $ne: 'admin' }}, UNNECESSARY_FIELDS)
       .populate('friends', UNNECESSARY_FIELDS)
       .populate('games', { __v: false });
   return users;

@@ -1,33 +1,19 @@
 const url = require('url');
 const { Game } = require('../models/gameModel');
+const { GAME_GENRES } = require('../consts');
 
 const getAllGames = async (reqUrl) => {
-  // TODO: refactor this shit
   const exceptFields = { __v: false };
-  const { genres, maxPrice, search } = url.parse(reqUrl, true).query;
+  const { genres=GAME_GENRES, maxPrice=100, search } = url.parse(reqUrl, true).query;
+
   if (search) {
     const games = await Game.find({ $or: [
-      { title: { $regex: search }},
-      { description: { $regex: search }},
+      {
+        title: { $regex: new RegExp(search, 'i') },
+        price: { $lt: maxPrice },
+        genre: { $in: genres },
+      },
     ]}, exceptFields);
-    return games;
-  }
-
-  if (!genres && !maxPrice) {
-    const games = await Game.find({}, exceptFields);
-
-    return games;
-  }
-
-  if (!maxPrice) {
-    const games = await Game.find({ genre: { $in: genres }}, exceptFields);
-
-    return games;
-  }
-
-  if (!genres) {
-    const games = await Game.find({ price: { $lt: maxPrice }}, exceptFields);
-
     return games;
   }
 

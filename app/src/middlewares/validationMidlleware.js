@@ -38,8 +38,7 @@ const patchUserInfoValidator = async (req, _, next) => {
         .required(),
     age: Joi.number()
         .min(3)
-        .max(100)
-        .required(),
+        .max(100),
   });
 
   try {

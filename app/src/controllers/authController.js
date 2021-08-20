@@ -25,7 +25,7 @@ router.post(
       res.json({ message: 'Profile created successfully' });
     }),
 );
-    
+
 router.post('/login', asyncWrapper(async (req, res) => {
   const {
     email,
