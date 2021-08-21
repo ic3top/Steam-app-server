@@ -5,6 +5,7 @@ const {
   createNewRequest,
   acceptRequest,
   declineRequest,
+  deleteFriend,
 } = require('../services/friendRequestsService');
 const { strValueRequired } = require('../middlewares/validationMidlleware');
 const {
@@ -18,6 +19,15 @@ router.post('/', strValueRequired('to'), asyncWrapper(async (req, res) => {
   await createNewRequest(userId, to);
 
   res.json({ message: 'New friend request created successfully' });
+}));
+
+router.delete('/', strValueRequired('friendId'), asyncWrapper(async (req, res) => {
+  const { friendId } = req.body;
+  const { userId } = req.user;
+
+  await deleteFriend(userId, friendId);
+
+  res.json({ message: 'Friend was deleted successfully' });
 }));
 
 router.patch('/accept', strValueRequired('requestId'), asyncWrapper(async (req, res) => {
@@ -37,5 +47,6 @@ router.delete('/decline', strValueRequired('requestId'), asyncWrapper(async (req
 
   res.json({ message: 'New friend request declined' });
 }));
+
 
 module.exports = { friendRequestsRouter: router };

@@ -16,6 +16,13 @@ const deleteRequest = async (userId, requestId) => {
   );
 };
 
+const pullFriend = async (id1, id2) => {
+  await User.updateOne(
+      { _id: id1 },
+      { $pull: { friends: id2 }},
+  );
+};
+
 const createNewRequest = async (from, to) => {
   const sameFR = await FriendRequest.findOne({ from, to });
 
@@ -62,8 +69,14 @@ const declineRequest = async (requestId, userId) => {
   await deleteRequest(FR.to, FR._id);
 };
 
+const deleteFriend = async (userId, friendId) => {
+  await pullFriend(userId, friendId);
+  await pullFriend(friendId, userId);
+};
+
 module.exports = {
   createNewRequest,
   acceptRequest,
   declineRequest,
+  deleteFriend,
 };

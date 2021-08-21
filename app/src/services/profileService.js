@@ -45,19 +45,6 @@ const changeUserInfo = async ({ userId, email, age, userName }) => {
   return updatedUser;
 };
 
-const addNewFriend = async (userId, friendId) => {
-  await User.updateOne(
-      { _id: userId },
-      { $addToSet: { friends: friendId }},
-  );
-};
-
-const deleteFriend = async (userId, friendId) => {
-  await User.updateOne(
-      { _id: userId },
-      { $pull: { friends: friendId }},
-  );
-};
 
 const addNewGame = async (userId, gameId) => {
   await User.updateOne(
@@ -77,8 +64,6 @@ module.exports = {
   getUserById,
   deleteUserById,
   changeUserInfo,
-  addNewFriend,
   addNewGame,
-  deleteFriend,
   deleteGame,
 };
