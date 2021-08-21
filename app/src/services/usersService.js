@@ -5,6 +5,7 @@ const UNNECESSARY_FIELDS = {
   email: false,
   password: false,
   games: false,
+  friendRequests: false,
 };
 
 const getAllUsers = async (reqUrl) => {
