@@ -15,8 +15,7 @@ const getAllUsers = async (reqUrl) => {
       userName: { $regex: new RegExp(search, 'i') },
     }, UNNECESSARY_FIELDS)
         .populate('friends', UNNECESSARY_FIELDS)
-        .populate('games', { __v: false });
-
+        .populate('games', UNNECESSARY_FIELDS);
     return users;
   }
 

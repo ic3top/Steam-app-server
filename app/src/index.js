@@ -11,6 +11,7 @@ const { authRouter } = require('./controllers/authController');
 const { profileRouter } = require('./controllers/profileController');
 const { usersRouter } = require('./controllers/usersController');
 const { gamesRouter } = require('./controllers/gamesController');
+const { friendRequestsRouter } = require('./controllers/friendRequestController');
 
 const { authMiddleware } = require('./middlewares/authMiddleware');
 const { NodeCourseError } = require('./utils/errors');
@@ -22,12 +23,13 @@ app.use('/steam/auth', authRouter);
 app.use('/steam/profile', [ authMiddleware ], profileRouter);
 app.use('/steam/users', usersRouter);
 app.use('/steam/games', gamesRouter);
+app.use('/steam/friends', [ authMiddleware ], friendRequestsRouter);
 
-app.use((req, res, next) => {
+app.use((_, res) => {
   res.status(404).json({ message: 'Not found' });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, _, res) => {
   if (err instanceof NodeCourseError) {
     return res.status(err.status).json({ message: err.message });
   }

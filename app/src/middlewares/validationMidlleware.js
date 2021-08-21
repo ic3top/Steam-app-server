@@ -101,10 +101,23 @@ const gameIdValidator = async (req, _, next) => {
   }
 };
 
+const strValueRequired = (value) => async (req, _, next) => {
+  try {
+    await Joi.object({
+      [value]: Joi.string()
+          .required(),
+    }).validateAsync(req.body);
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   registrationValidator,
   patchUserInfoValidator,
   newGameValidator,
   friendIdValidator,
   gameIdValidator,
+  strValueRequired,
 };

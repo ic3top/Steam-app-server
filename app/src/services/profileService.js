@@ -12,7 +12,11 @@ const getUserById = async (userId) => {
         password: false,
         games: false,
       })
-      .populate('games', { __v: false });
+      .populate('friendRequests games', { __v: false })
+      .populate({ path: 'friendRequests', populate: {
+        path: 'to from',
+        select: { __v: false, friendRequests: false, password: false },
+      }, select: { __v: false }});
   return userInfo;
 };
 

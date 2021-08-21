@@ -38,6 +38,12 @@ const User = mongoose.model('User', {
     type: Date,
     default: Date.now(),
   },
+
+  friendRequests: {
+    type: [ mongoose.Schema.Types.ObjectId ],
+    ref: 'FriendRequest',
+    default: [],
+  },
 });
 
 module.exports = { User };
