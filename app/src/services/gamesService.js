@@ -25,6 +25,12 @@ const getAllGames = async (reqUrl) => {
   return games;
 };
 
+const getGameById = async (gameId) => {
+  const game = await Game.findOne({ _id: gameId });
+
+  return game;
+};
+
 const addNewGame = async (gameDescription) => {
   const newGame = new Game(gameDescription);
 
@@ -34,4 +40,5 @@ const addNewGame = async (gameDescription) => {
 module.exports = {
   getAllGames,
   addNewGame,
+  getGameById,
 };

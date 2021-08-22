@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { newGameValidator } = require('../middlewares/validationMidlleware');
-const { getAllGames, addNewGame } = require('../services/gamesService');
+const { getAllGames, addNewGame, getGameById } = require('../services/gamesService');
 const { adminVerificationMiddleware } = require('../middlewares/adminVerificationMiddleware');
 
 const {
@@ -13,6 +13,12 @@ router.get('/', asyncWrapper(async (req, res) => {
   const games = await getAllGames(req.url);
 
   res.json({ games });
+}));
+
+router.get('/:gameId', asyncWrapper(async (req, res) => {
+  const game = await getGameById(req.params.gameId);
+
+  res.json({ game });
 }));
 
 router.post('/', adminVerificationMiddleware, newGameValidator, asyncWrapper(async (req, res) => {
