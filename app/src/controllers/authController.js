@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const DAY_IN_SECONDS = 86400;
 
 const {
   register,
@@ -34,7 +35,10 @@ router.post('/login', asyncWrapper(async (req, res) => {
 
   const token = await login({ email, password });
 
-  res.json({ jwt_token: token });
+  res.json({
+    jwt_token: token,
+    expires_at: Date.now().valueOf() + DAY_IN_SECONDS,
+  });
 }));
 
 module.exports = {
