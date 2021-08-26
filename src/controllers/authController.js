@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const DAY_IN_SECONDS = 86400;
 
 const {
   register,
@@ -34,10 +33,11 @@ router.post('/login', asyncWrapper(async (req, res) => {
   } = req.body;
 
   const token = await login({ email, password });
+  const tommorow = new Date(new Date().getTime() + 60 * 60 * 24 * 1000);
 
   res.json({
     jwt_token: token,
-    expires_at: Date.now().valueOf() + DAY_IN_SECONDS,
+    expires_at: tommorow,
   });
 }));
 
