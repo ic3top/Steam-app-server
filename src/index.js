@@ -16,7 +16,9 @@ const { authMiddleware } = require('./middlewares/authMiddleware');
 const { NodeCourseError } = require('./utils/errors');
 
 app.use(cors({
-  origin: 'https://ic3top.github.io/Steam-app',
+  origin: 'https://ic3top.github.io',
+  methods: [ 'GET', 'POST', 'PATCH', 'PUT', 'DELETE' ],
+  optionsSuccessStatus: 200
 }));
 app.use(express.json());
 app.use(morgan('dev'));
