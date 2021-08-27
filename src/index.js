@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 
 const PORT = 8080;
 const app = express();
-app.use(cors(/* CONFIG */));
 
 const { authRouter } = require('./controllers/authController');
 const { profileRouter } = require('./controllers/profileController');
@@ -16,6 +15,9 @@ const { friendRequestsRouter } = require('./controllers/friendRequestController'
 const { authMiddleware } = require('./middlewares/authMiddleware');
 const { NodeCourseError } = require('./utils/errors');
 
+app.use(cors({
+  origin: 'https://ic3top.github.io/Steam-app',
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
