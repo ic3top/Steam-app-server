@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
-const PORT = 8080;
 const app = express();
 
 const { authRouter } = require('./controllers/authController');
@@ -13,12 +13,12 @@ const { gamesRouter } = require('./controllers/gamesController');
 const { friendRequestsRouter } = require('./controllers/friendRequestController');
 
 const { authMiddleware } = require('./middlewares/authMiddleware');
-const { NodeCourseError } = require('./utils/errors');
+const { NodeError } = require('./utils/errors');
 
 app.use(cors({
-  origin: 'https://ic3top.github.io',
+  origin: process.env.DOMAIN,
   methods: [ 'GET', 'POST', 'PATCH', 'PUT', 'DELETE' ],
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 }));
 app.use(express.json());
 app.use(morgan('dev'));
@@ -34,7 +34,7 @@ app.use((_, res) => {
 });
 
 app.use((err, _, res) => {
-  if (err instanceof NodeCourseError) {
+  if (err instanceof NodeError) {
     return res.status(err.status).json({ message: err.message });
   }
   res.status(500).json({ message: err.message });
@@ -42,8 +42,7 @@ app.use((err, _, res) => {
 
 const start = async (PORT) => {
   try {
-    // eslint-disable-next-line max-len
-    await mongoose.connect('mongodb+srv://test:dvdvdv88@cluster0.orahy.mongodb.net/TEST?retryWrites=true&w=majority', {
+    await mongoose.connect(process.env.DB, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
@@ -55,4 +54,4 @@ const start = async (PORT) => {
   }
 };
 
-start(process.env.PORT || PORT);
+start(process.env.PORT);

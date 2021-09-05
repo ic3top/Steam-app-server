@@ -1,11 +1,11 @@
-class NodeCourseError extends Error {
+class NodeError extends Error {
   constructor(message) {
     super(message);
     this.status = 500;
   }
 }
 
-class InvalidRequestError extends NodeCourseError {
+class InvalidRequestError extends NodeError {
   constructor(message = 'Invalid request', status=400) {
     super(message);
     this.status = status;
@@ -13,6 +13,6 @@ class InvalidRequestError extends NodeCourseError {
 }
 
 module.exports = {
-  NodeCourseError,
+  NodeError,
   InvalidRequestError,
 };
